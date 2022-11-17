@@ -8,15 +8,15 @@
     border-radius: 10px;
     padding: 18px;
     position: relative;
-   top: -25px;
-left: 10px;
+    top: -25px;
+    left: 10px;
 
     .button {
       width: 100%;
       margin-top: 15px;
     }
 
-    &-close-btn{
+    &-close-btn {
       position: absolute;
       right: -5px;
       top: -5px;
@@ -24,10 +24,9 @@ left: 10px;
     }
 
     &-colors {
-   display: flex;
-   justify-content: space-between;
+      display: flex;
+      justify-content: space-between;
       margin-top: 12px;
-      
 
       .badge {
         width: 16px;
@@ -35,8 +34,8 @@ left: 10px;
         cursor: pointer;
         border: 2px solid transparent;
 
-        &.active{
-          border:2px solid #525252;
+        &.active {
+          border: 2px solid #525252;
         }
       }
     }

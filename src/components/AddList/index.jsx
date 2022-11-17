@@ -1,15 +1,30 @@
 import React, { useState } from "react";
 import List from "../List";
 import Badge from "../Badge";
-import closeSvg from '../../assets/img/close.svg'
+import closeSvg from "../../assets/img/close.svg";
 
 import "./AddButtonList.scss";
 
-const AddList = ({ colors }) => {
+const AddList = ({ colors, onAdd }) => {
   const [visiblePopup, setvisiblePopup] = useState(true);
   const [selectedColor, selectColor] = useState(colors[0].id);
-console.log(selectedColor);
+  const [inputValue, setinputValue] = useState("");
 
+  const onClose=()=>{
+    setvisiblePopup(false);
+    setinputValue('');
+    selectColor(colors[0].id);
+  }
+
+  const addList = () => {
+    if (!inputValue) {
+      alert("Введите название списка");
+      return;
+    }
+    const color= colors.filter(c=>c.id===selectedColor)[0].name;
+    onAdd({ id: Math.random(), name: inputValue, color });
+    onClose();
+  };
   return (
     <div className="add-list">
       <List
@@ -48,18 +63,31 @@ console.log(selectedColor);
       {visiblePopup && (
         <div className="add-list__popup">
           <img
-          onClick={()=> setvisiblePopup(false)} src={closeSvg} alt="Close button" className="add-list__popup-close-btn"/>
-          <input className="field" type="text" placeholder="Название списка" />
+            onClick={onClose}
+            src={closeSvg}
+            alt="Close button"
+            className="add-list__popup-close-btn"
+          />
+          <input
+            value={inputValue}
+            onChange={(e) => setinputValue(e.target.value)}
+            className="field"
+            type="text"
+            placeholder="Название списка"
+          />
           <div className="add-list__popup-colors">
             {colors.map((color) => (
-              <Badge onClick={() => selectColor(color.id)}
-               key={color.id} 
-               color={color.name} 
-               className={selectedColor === color.id && 'active'}
-               />
+              <Badge
+                onClick={() => selectColor(color.id)}
+                key={color.id}
+                color={color.name}
+                className={selectedColor === color.id && "active"}
+              />
             ))}
           </div>
-          <button className="button">Добавить</button>
+          <button onClick={addList} className="button">
+            Добавить
+          </button>
         </div>
       )}
     </div>
